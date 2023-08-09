@@ -3,6 +3,8 @@ package com.example.wanted.service;
 
 import com.example.wanted.domain.Post;
 import com.example.wanted.domain.User;
+import com.example.wanted.exception.PostNotFoundException;
+import com.example.wanted.exception.UserNotFoundException;
 import com.example.wanted.repository.PostRepository;
 import com.example.wanted.repository.UserRepository;
 import com.example.wanted.request.PageInfo;
@@ -26,28 +28,29 @@ public class PostService {
     private final PostRepository postRepository;
 
 
-    public void write(Long userId, PostWrite postWrite) {
-        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);//유저 못찾음 에러
+    public Long write(Long userId, PostWrite postWrite) {
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);//유저 못찾음 에러
 
-        postRepository.save(Post.builder()
-                .title(postWrite.getTitle())
-                .content(postWrite.getContent())
-                .user(user)
-                .build());
+        return postRepository.save(Post.builder()
+                        .title(postWrite.getTitle())
+                        .content(postWrite.getContent())
+                        .user(user)
+                        .build())
+                .getId();
 
     }
 
     public PostRead read(Long postId) {
 
-        return new PostRead(postRepository.findById(postId).orElseThrow(RuntimeException::new));//게시물 미발견 에러
+        return new PostRead(postRepository.findById(postId).orElseThrow(PostNotFoundException::new));//게시물 미발견 에러
 
     }
 
     public void modify(Long userId, Long postId,PostModify postModify) {
 
-        Post modifyPost = writerCheck(userId, postId);
+        Post post = writerCheck(userId, postId);
 
-        modifyPost.modify(postModify);
+        post.modify(postModify);
 
 
     }
@@ -74,9 +77,9 @@ public class PostService {
     }
 
     private Post writerCheck(Long userId, Long postId) {
-        User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
 
-        Post post = postRepository.findById(postId).orElseThrow(RuntimeException::new);
+        Post post = postRepository.findById(postId).orElseThrow(PostNotFoundException::new);
 
         if (post.getUser() != user) {
             throw new RuntimeException();

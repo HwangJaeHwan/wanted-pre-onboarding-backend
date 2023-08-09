@@ -2,9 +2,12 @@ package com.example.wanted.service;
 
 import com.example.wanted.config.jwt.JwtProvider;
 import com.example.wanted.domain.User;
+import com.example.wanted.exception.DuplicationEmailException;
+import com.example.wanted.exception.LoginException;
 import com.example.wanted.repository.UserRepository;
 import com.example.wanted.request.LoginRequest;
 import com.example.wanted.request.SignupRequest;
+import com.example.wanted.response.Token;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,22 +23,28 @@ public class UserService {
     private final JwtProvider jwtProvider;
 
 
-    public void signup(SignupRequest signupRequest) {
+    public Long signup(SignupRequest signupRequest) {
 
-        userRepository.save(new User(signupRequest.getEmail(), signupRequest.getPassword()));
+        if (userRepository.findUserByEmail(signupRequest.getEmail()).isPresent()) {
+            throw new DuplicationEmailException();
+        }
+
+        User save = userRepository.save(new User(signupRequest.getEmail(), encoder.encode(signupRequest.getPassword())));
+
+        return save.getId();
 
     }
 
 
-    public String login(LoginRequest loginRequest) {
+    public Token login(LoginRequest loginRequest) {
 
-        User user = userRepository.findUserByEmail(loginRequest.getEmail()).orElseThrow(RuntimeException::new);
+        User user = userRepository.findUserByEmail(loginRequest.getEmail()).orElseThrow(LoginException::new);
 
         if (!encoder.matches(loginRequest.getPassword(), user.getPassword())) {
-            throw new RuntimeException();
+            throw new LoginException();
         }
-        //jwt 토근 만들기
-        return jwtProvider.getToken(user.getId());
+
+        return new Token(jwtProvider.getToken(user.getId()));
 
     }
 

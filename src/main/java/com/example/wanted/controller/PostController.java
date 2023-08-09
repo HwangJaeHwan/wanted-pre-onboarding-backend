@@ -1,6 +1,7 @@
 package com.example.wanted.controller;
 
 import com.example.wanted.config.data.UserSession;
+import com.example.wanted.request.PageInfo;
 import com.example.wanted.request.PostModify;
 import com.example.wanted.request.PostWrite;
 import com.example.wanted.response.PostRead;
@@ -15,6 +16,12 @@ import org.springframework.web.bind.annotation.*;
 public class PostController {
 
     private final PostService postService;
+
+
+    @GetMapping
+    public void posts(PageInfo pageInfo) {
+        postService.posts(pageInfo);
+    }
 
     @PostMapping("/write")
     public void write(UserSession userSession, PostWrite postWrite) {

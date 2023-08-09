@@ -13,4 +13,9 @@ public class LoginRequest {
     @Size(min = 8,message = "비밂번호의 길이는 8자 이상입니다.")
     private String password;
 
+
+    public LoginRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

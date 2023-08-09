@@ -2,6 +2,7 @@ package com.example.wanted.controller;
 
 import com.example.wanted.request.LoginRequest;
 import com.example.wanted.request.SignupRequest;
+import com.example.wanted.response.Token;
 import com.example.wanted.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,9 +25,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody @Valid LoginRequest loginRequest) {
+    public Token login(@RequestBody @Valid LoginRequest loginRequest) {
 
-        userService.login(loginRequest);
+        return userService.login(loginRequest);
 
     }
 }
