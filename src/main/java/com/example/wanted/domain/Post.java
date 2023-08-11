@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static jakarta.persistence.FetchType.*;
 import static lombok.AccessLevel.*;
 
 @Entity
@@ -16,13 +17,14 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
-    private Long Id;
+    private Long id;
 
     private String title;
 
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Builder

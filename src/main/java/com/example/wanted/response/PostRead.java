@@ -10,9 +10,12 @@ public class PostRead {
 
     private String content;
 
+    private String email;
+
 
     public PostRead(Post post) {
         this.title = post.getTitle();
         this.content = post.getContent();
+        this.email = post.getUser().getEmail();
     }
 }

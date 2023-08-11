@@ -4,6 +4,7 @@ package com.example.wanted.service;
 import com.example.wanted.domain.Post;
 import com.example.wanted.domain.User;
 import com.example.wanted.exception.PostNotFoundException;
+import com.example.wanted.exception.UnauthorizedException;
 import com.example.wanted.exception.UserNotFoundException;
 import com.example.wanted.repository.PostRepository;
 import com.example.wanted.repository.UserRepository;
@@ -65,7 +66,7 @@ public class PostService {
 
     public PostList posts(PageInfo page) {
 
-        Page<Post> posts = postRepository.findAll(PageRequest.of(page.getPage()-1, 10));
+        Page<Post> posts = postRepository.findPosts(PageRequest.of(page.getPage()-1, 10));
 
         return PostList.builder()
                 .totalPage(posts.getTotalPages())
@@ -82,7 +83,7 @@ public class PostService {
         Post post = postRepository.findById(postId).orElseThrow(PostNotFoundException::new);
 
         if (post.getUser() != user) {
-            throw new RuntimeException();
+            throw new UnauthorizedException();
         }
 
         return post;

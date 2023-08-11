@@ -2,6 +2,8 @@ package com.example.wanted.service;
 
 import com.example.wanted.config.jwt.JwtProvider;
 import com.example.wanted.domain.User;
+import com.example.wanted.exception.DuplicationEmailException;
+import com.example.wanted.exception.LoginException;
 import com.example.wanted.repository.PostRepository;
 import com.example.wanted.repository.UserRepository;
 import com.example.wanted.request.LoginRequest;
@@ -26,6 +28,9 @@ class UserServiceTest {
     UserRepository userRepository;
 
     @Autowired
+    PostRepository postRepository;
+
+    @Autowired
     UserService userService;
 
     @Autowired
@@ -37,6 +42,7 @@ class UserServiceTest {
 
     @BeforeEach
     void clean() {
+        postRepository.deleteAll();
         userRepository.deleteAll();
     }
 
@@ -65,7 +71,7 @@ class UserServiceTest {
 
         SignupRequest signupRequest = new SignupRequest("same@email.com", "password1234");
 
-        assertThrows(RuntimeException.class, () -> userService.signup(signupRequest));
+        assertThrows(DuplicationEmailException.class, () -> userService.signup(signupRequest));
 
     }
 
@@ -94,7 +100,7 @@ class UserServiceTest {
 
         LoginRequest loginTest = new LoginRequest("test@email.com", "diffpassword");
 
-        assertThrows(RuntimeException.class, () -> userService.login(loginTest));
+        assertThrows(LoginException.class, () -> userService.login(loginTest));
 
     }
 

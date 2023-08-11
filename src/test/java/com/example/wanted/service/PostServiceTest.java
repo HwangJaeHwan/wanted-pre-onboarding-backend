@@ -49,8 +49,8 @@ class PostServiceTest {
 
     @BeforeEach
     void clean() {
-        userRepository.deleteAll();
         postRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
 
@@ -83,6 +83,7 @@ class PostServiceTest {
 
         assertEquals("title", read.getTitle());
         assertEquals("content", read.getContent());
+        assertEquals("test@email.com", read.getEmail());
 
     }
 

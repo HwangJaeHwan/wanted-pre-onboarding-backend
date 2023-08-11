@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.2'
 	id 'io.spring.dependency-management' version '1.1.2'
+	id "org.asciidoctor.jvm.convert" version "3.3.2"
 }
 
 group = 'com.example'
@@ -12,6 +13,8 @@ java {
 }
 
 configurations {
+	asciidoctorExt
+
 	compileOnly {
 		extendsFrom annotationProcessor
 	}
@@ -21,10 +24,18 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	snippetsDir = file('build/generated-snippets')
+	asciidocVersion = "3.0.0"
+}
+
 dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	runtimeOnly	'io.jsonwebtoken:jjwt-jackson:0.11.5'
+
+	asciidoctorExt "org.springframework.restdocs:spring-restdocs-asciidoctor:${asciidocVersion}"
+	testImplementation "org.springframework.restdocs:spring-restdocs-mockmvc:${asciidocVersion}"
 
 
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -32,14 +43,38 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	compileOnly 'org.projectlombok:lombok'
-//	runtimeOnly 'com.mysql:mysql-connector-j'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 	// https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
-	implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
+//	implementation 'org.mariadb.jdbc:mariadb-java-client:3.1.4'
 
 	annotationProcessor 'org.projectlombok:lombok'
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
+
+test {
+	outputs.dir snippetsDir
+}
+
+asciidoctor {
+	inputs.dir snippetsDir
+	configurations 'asciidoctorExt'
+	dependsOn test
+}
+
+
+
+
+bootJar {
+	dependsOn asciidoctor
+
+	copy {
+		from asciidoctor.outputDir
+		into "src/main/resources/static/docs"
+	}
+
+}
+
 
 tasks.named('test') {
 	useJUnitPlatform()

@@ -2,6 +2,9 @@ package com.example.wanted.config;
 
 import com.example.wanted.config.data.UserSession;
 import com.example.wanted.config.jwt.JwtProvider;
+import com.example.wanted.exception.MyExpiredJwtException;
+import com.example.wanted.exception.MyJwtException;
+import com.example.wanted.exception.UnauthorizedException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +36,7 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
         String jws = webRequest.getHeader(HttpHeaders.AUTHORIZATION);
 
         if (!StringUtils.hasText(jws)) {
-            throw new RuntimeException();
+            throw new UnauthorizedException();
         }
 
         try {
@@ -46,11 +49,11 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
 
         } catch (ExpiredJwtException e) {
 
-            throw new RuntimeException();
+            throw new MyExpiredJwtException();
 
         } catch (JwtException e) {
 
-            throw new RuntimeException();
+            throw new MyJwtException();
 
             //don't trust the JWT!
         }

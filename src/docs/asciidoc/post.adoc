@@ -1,0 +1,75 @@
+= 원티드 API
+:toc:
+
+
+== 게시글 리스트
+
+=== 요청
+
+include::{snippets}/post-list/http-request.adoc[]
+
+include::{snippets}/post-list/query-parameters.adoc[]
+
+=== 응답
+
+include::{snippets}/post-list/response-body.adoc[]
+
+include::{snippets}/post-list/response-fields.adoc[]
+
+
+
+
+== 게시글 읽기
+
+=== 요청
+
+include::{snippets}/post-read/http-request.adoc[]
+
+include::{snippets}/post-read/path-parameters.adoc[]
+
+
+=== 응답
+
+include::{snippets}/post-read/response-body.adoc[]
+
+include::{snippets}/post-read/response-fields.adoc[]
+
+
+
+
+== 게시글 쓰기
+
+=== 요청
+
+include::{snippets}/post-write/http-request.adoc[]
+
+include::{snippets}/post-write/request-headers.adoc[]
+
+include::{snippets}/post-write/request-fields.adoc[]
+
+
+== 게시글 수정
+
+=== 요청
+
+include::{snippets}/post-modify/http-request.adoc[]
+
+include::{snippets}/post-modify/request-headers.adoc[]
+
+include::{snippets}/post-modify/request-fields.adoc[]
+
+
+== 게시글 삭제
+
+include::{snippets}/post-delete/http-request.adoc[]
+
+include::{snippets}/post-delete/request-headers.adoc[]
+
+include::{snippets}/post-delete/path-parameters.adoc[]
+
+
+
+
+
+
+

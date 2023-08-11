@@ -4,6 +4,7 @@ import com.example.wanted.config.data.UserSession;
 import com.example.wanted.request.PageInfo;
 import com.example.wanted.request.PostModify;
 import com.example.wanted.request.PostWrite;
+import com.example.wanted.response.PostList;
 import com.example.wanted.response.PostRead;
 import com.example.wanted.service.PostService;
 import jakarta.validation.Valid;
@@ -19,8 +20,8 @@ public class PostController {
 
 
     @GetMapping
-    public void posts(PageInfo pageInfo) {
-        postService.posts(pageInfo);
+    public PostList posts(PageInfo pageInfo) {
+        return postService.posts(pageInfo);
     }
 
     @PostMapping("/write")

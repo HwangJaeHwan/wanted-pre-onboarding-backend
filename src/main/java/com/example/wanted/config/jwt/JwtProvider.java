@@ -20,14 +20,13 @@ public class JwtProvider {
         SecretKey key = Keys.hmacShaKeyFor(jwtConfig.getJwtKey());
         Date now = new Date(System.currentTimeMillis());
         Date expiry = new Date(System.currentTimeMillis() + 1800000);
-        String token = Jwts.builder()
+
+        return Jwts.builder()
                 .setSubject(String.valueOf(userId))
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .signWith(key)
                 .compact();
-
-        return token;
     }
 
     public Long parseToken(String token) {

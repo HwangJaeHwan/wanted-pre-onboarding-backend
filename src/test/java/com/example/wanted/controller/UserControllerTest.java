@@ -2,11 +2,13 @@ package com.example.wanted.controller;
 
 import com.example.wanted.config.jwt.JwtProvider;
 import com.example.wanted.domain.User;
+import com.example.wanted.repository.PostRepository;
 import com.example.wanted.repository.UserRepository;
 import com.example.wanted.request.LoginRequest;
 import com.example.wanted.request.SignupRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +45,17 @@ class UserControllerTest {
     UserRepository userRepository;
 
     @Autowired
+    PostRepository postRepository;
+
+    @Autowired
     PasswordEncoder encoder;
+
+    @BeforeEach
+    void clean() {
+        postRepository.deleteAll();
+        userRepository.deleteAll();
+    }
+
 
 
 
