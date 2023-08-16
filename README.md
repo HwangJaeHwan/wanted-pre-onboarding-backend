@@ -71,10 +71,37 @@ services:
 3. ```docker-compose up -d``` 명령어로 컨테이너를 실행해주세요.
 
 
+
 ## 데이터베이스 테이블 구조
 
 ## 구현한 API의 동작을 촬영한 데모 영상 링크
 
 ## 구현 방법 및 이유에 대한 간략한 설명
 
+[Link to Another Page](./src/main/resource/static/docs/post.html)
+
 ## API 명세(request/response 포함)
+
+![회원가입](https://github.com/HwangJaeHwan/wanted-pre-onboarding-backend/assets/58110333/96f59a9c-19a0-45d4-808e-c745ea6f81d4)
+---
+
+![로그인](https://github.com/HwangJaeHwan/wanted-pre-onboarding-backend/assets/58110333/aacb1dc4-7d97-47b0-88c3-b5ca599fcbad)
+---
+
+![게시글 쓰기](https://github.com/HwangJaeHwan/wanted-pre-onboarding-backend/assets/58110333/3a5bbe33-1417-404a-813c-eea17c07010c)
+---
+
+![게시글 읽기](https://github.com/HwangJaeHwan/wanted-pre-onboarding-backend/assets/58110333/9ed27c4d-2798-448d-80a8-6d502d1e917e)
+---
+
+
+![게시글 수정](https://github.com/HwangJaeHwan/wanted-pre-onboarding-backend/assets/58110333/0c412b06-cb54-476c-940c-79c1c3c480e4)
+---
+
+
+![게시글 삭제](https://github.com/HwangJaeHwan/wanted-pre-onboarding-backend/assets/58110333/d8e8002d-40c2-4733-b652-e14ca52c36a4)
+---
+
+![게시글 리스트](https://github.com/HwangJaeHwan/wanted-pre-onboarding-backend/assets/58110333/8b7f8734-79e1-4009-9683-fa6ff92bbf6f)
+---
+
