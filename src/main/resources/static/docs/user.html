@@ -559,9 +559,9 @@ Pragma: no-cache
 Expires: 0
 Strict-Transport-Security: max-age=31536000 ; includeSubDomains
 X-Frame-Options: DENY
-Content-Length: 137
+Content-Length: 290
 
-{"token":"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjkxNzY4OTIxLCJleHAiOjE2OTE3NzA3MjF9.mm7H5mLN1yOYhshwyjO4x6zRpkalcYv9mZDv95XhG4c"}</code></pre>
+{"access":"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjkyMTczNzc0LCJleHAiOjE2OTIxNzU1NzR9.46WoCkf4hhxP4SGbXaLJNKqAb-6w1n5Dwr3CKbnmjew","refresh":"Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2IiwiaWF0IjoxNjkyMTczNzc0LCJleHAiOjE2OTIyNjAxNzR9.XHN2YQnZ6sB8ZmizEWA35rNpdeECo4UkhC-Qip8-GJU"}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -579,9 +579,14 @@ Content-Length: 137
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>token</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>access</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">JWT 토근</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ACCESS 토근</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>refresh</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REFRESH 토큰</p></td>
 </tr>
 </tbody>
 </table>

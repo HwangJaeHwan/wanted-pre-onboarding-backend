@@ -89,8 +89,8 @@ public class UserControllerDocTest {
                         requestFields(fieldWithPath("email").description("이메일"),
                                 fieldWithPath("password").description("비밀번호")),
                         responseFields(
-                                fieldWithPath("acess").description("ACCESS 토근"),
-                                fieldWithPath("refesh").description("REFRESH 토큰"))));
+                                fieldWithPath("access").description("ACCESS 토근"),
+                                fieldWithPath("refresh").description("REFRESH 토큰"))));
     }
 
 

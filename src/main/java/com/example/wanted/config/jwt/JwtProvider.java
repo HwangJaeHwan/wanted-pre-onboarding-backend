@@ -19,12 +19,12 @@ public class JwtProvider {
 
     public String getAccessToken(Long userId) {
 
-        return makeToken(userId, 1800000);
+        return "Bearer " + makeToken(userId, 1800000);
     }
 
     public String getRefreshToken(Long userId) {
 
-        return makeToken(userId, 86400000);
+        return "Bearer " + makeToken(userId, 86400000);
     }
 
     public Long parseToken(String token) {

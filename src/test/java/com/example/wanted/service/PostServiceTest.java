@@ -3,6 +3,8 @@ package com.example.wanted.service;
 import com.example.wanted.config.jwt.JwtProvider;
 import com.example.wanted.domain.Post;
 import com.example.wanted.domain.User;
+import com.example.wanted.exception.DuplicationEmailException;
+import com.example.wanted.exception.UnauthorizedException;
 import com.example.wanted.repository.PostRepository;
 import com.example.wanted.repository.UserRepository;
 import com.example.wanted.request.PageInfo;
@@ -64,9 +66,9 @@ class PostServiceTest {
         Long postId = postService.write(user.getId(), postWrite);
         Post find = postRepository.findById(postId).get();
 
-        Assertions.assertEquals(1L, postRepository.count());
-        Assertions.assertEquals("title", find.getTitle());
-        Assertions.assertEquals("content", find.getContent());
+        assertEquals(1L, postRepository.count());
+        assertEquals("title", find.getTitle());
+        assertEquals("content", find.getContent());
 
     }
 
@@ -110,6 +112,24 @@ class PostServiceTest {
     }
 
     @Test
+    @DisplayName("다른 유저가 게시글 수정")
+    void 게시글_수정_다른유저() {
+
+        User user = userRepository.save(new User("test@email.com", encoder.encode("password1234")));
+        User user2 = userRepository.save(new User("test2@email.com", encoder.encode("password1234")));
+
+        Post post = new Post("title", "content", user);
+
+        postRepository.save(post);
+
+        PostModify modify = new PostModify("changeTitle", "changeContent");
+
+        assertThrows(UnauthorizedException.class, () -> postService.modify(user2.getId(), post.getId(), modify));
+
+
+    }
+
+    @Test
     @DisplayName("게시글 삭제")
     void 게시글_삭제() {
 
@@ -121,6 +141,21 @@ class PostServiceTest {
         postService.delete(user.getId(), post.getId());
 
         assertEquals(0, postRepository.count());
+
+    }
+
+    @Test
+    @DisplayName("다른 유저가 게시글 삭제")
+    void 게시글_삭제_다른유저() {
+
+        User user = userRepository.save(new User("test@email.com", encoder.encode("password1234")));
+        User user2 = userRepository.save(new User("test2@email.com", encoder.encode("password1234")));
+        Post post = new Post("title", "content", user);
+
+        postRepository.save(post);
+
+
+        assertThrows(UnauthorizedException.class, () -> postService.delete(user2.getId(), post.getId()));
 
     }
 
