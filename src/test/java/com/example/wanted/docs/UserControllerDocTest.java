@@ -88,8 +88,9 @@ public class UserControllerDocTest {
                 .andDo(document("login",
                         requestFields(fieldWithPath("email").description("이메일"),
                                 fieldWithPath("password").description("비밀번호")),
-                        responseFields(fieldWithPath("token").description("JWT 토근"))));
-
+                        responseFields(
+                                fieldWithPath("acess").description("ACCESS 토근"),
+                                fieldWithPath("refesh").description("REFRESH 토큰"))));
     }
 
 

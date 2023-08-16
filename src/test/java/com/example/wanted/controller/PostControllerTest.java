@@ -82,7 +82,7 @@ class PostControllerTest {
 
         PostWrite postWrite = new PostWrite("title", "content");
 
-        String token = jwtProvider.getToken(user.getId());
+        String token = jwtProvider.getAccessToken(user.getId());
 
         String json = objectMapper.writeValueAsString(postWrite);
 
@@ -102,7 +102,7 @@ class PostControllerTest {
 
         PostModify modify = new PostModify("after title", "after content");
 
-        String token = jwtProvider.getToken(user.getId());
+        String token = jwtProvider.getAccessToken(user.getId());
 
         String json = objectMapper.writeValueAsString(modify);
 
@@ -123,7 +123,7 @@ class PostControllerTest {
 
         Post post = postRepository.save(new Post("test title", "test content", user));
 
-        String token = jwtProvider.getToken(user.getId());
+        String token = jwtProvider.getAccessToken(user.getId());
 
         mockMvc.perform(delete("/posts/{postId}/delete", post.getId())
                         .header(HttpHeaders.AUTHORIZATION, token))

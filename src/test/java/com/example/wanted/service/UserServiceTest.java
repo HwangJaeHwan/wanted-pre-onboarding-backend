@@ -9,7 +9,6 @@ import com.example.wanted.repository.UserRepository;
 import com.example.wanted.request.LoginRequest;
 import com.example.wanted.request.SignupRequest;
 import com.example.wanted.response.Token;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -85,10 +84,17 @@ class UserServiceTest {
         LoginRequest loginTest = new LoginRequest("test@email.com", "password1234");
 
         Token token = userService.login(loginTest);
-        Long checkId = jwtProvider.parseToken(token.getToken());
+
+        System.out.println(token.getAccess());
+        System.out.println(token.getRefresh());
+
+        Long accessId = jwtProvider.parseToken(token.getAccess());
+        Long refreshId = jwtProvider.parseToken(token.getRefresh());
 
 
-        assertEquals(checkId, loginUser.getId());
+
+        assertEquals(accessId, loginUser.getId());
+        assertEquals(refreshId, loginUser.getId());
 
     }
 

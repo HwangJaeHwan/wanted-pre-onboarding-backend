@@ -124,7 +124,8 @@ class UserControllerTest {
                         .contentType(APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token").isNotEmpty())
+                .andExpect(jsonPath("$.access").isNotEmpty())
+                .andExpect(jsonPath("$.refresh").isNotEmpty())
                 .andDo(print());
 
     }

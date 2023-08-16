@@ -44,7 +44,8 @@ public class UserService {
             throw new LoginException();
         }
 
-        return new Token(jwtProvider.getToken(user.getId()));
+        return new Token("Bearer " + jwtProvider.getAccessToken(user.getId()),
+                "Bearer " + jwtProvider.getRefreshToken(user.getId()));
 
     }
 

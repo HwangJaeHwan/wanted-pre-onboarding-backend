@@ -8,6 +8,7 @@ import com.example.wanted.exception.UnauthorizedException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
@@ -17,6 +18,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 
+@Slf4j
 @RequiredArgsConstructor
 public class AuthResolver implements HandlerMethodArgumentResolver {
 
@@ -33,15 +35,17 @@ public class AuthResolver implements HandlerMethodArgumentResolver {
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
-        String jws = webRequest.getHeader(HttpHeaders.AUTHORIZATION);
+        String token = webRequest.getHeader(HttpHeaders.AUTHORIZATION);
 
-        if (!StringUtils.hasText(jws)) {
+        if (!StringUtils.hasText(token)) {
             throw new UnauthorizedException();
         }
 
+
+
         try {
 
-            Long userId = jwtProvider.parseToken(jws);
+            Long userId = jwtProvider.parseToken(token);
 
             //OK, we can trust this JWT
 

@@ -25,7 +25,7 @@ public class PostController {
     }
 
     @PostMapping("/write")
-    public void write(UserSession userSession, PostWrite postWrite) {
+    public void write(UserSession userSession, @RequestBody @Valid PostWrite postWrite) {
 
         postService.write(userSession.getUserId(), postWrite);
 
