@@ -61,6 +61,8 @@ include::{snippets}/post-modify/request-fields.adoc[]
 
 == 게시글 삭제
 
+=== 요청
+
 include::{snippets}/post-delete/http-request.adoc[]
 
 include::{snippets}/post-delete/request-headers.adoc[]

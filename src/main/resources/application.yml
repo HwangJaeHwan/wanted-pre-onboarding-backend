@@ -11,8 +11,8 @@ spring:
     password: toor
 
   jpa:
-#    open-in-view: false
-    show-sql: true
+    open-in-view: false
+    show-sql: false
     hibernate:
       ddl-auto: create
     properties:
